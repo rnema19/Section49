@@ -66,7 +66,7 @@ app.get('/',(req,res)=>{
 })
 
 app.all('*',(req,res,next)=>{
-   return next(new expressError("Page not found!!",404))
+   next(new expressError('Page not found!!',404))
 })
 
 app.use((err,req,res,next)=>{
