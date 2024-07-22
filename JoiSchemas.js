@@ -10,7 +10,7 @@ const campgroundSchema = Joi.object({
         }).required()
 })
 
-module.exports = campgroundSchema
+module.exports.campgroundSchema = campgroundSchema
 
 module.exports.reviewSchema = Joi.object({
     review : Joi.object({

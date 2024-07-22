@@ -1,18 +1,15 @@
 const express = require('express')
-const app = express()
 const path = require('path')
-var methodOverride = require('method-override')
-var bodyParser = require('body-parser')
 const mongoose = require('mongoose');
 var ejsMate = require('ejs-mate')
-const expressError = require('./utils/expressError');
-
-
-const reviews = require('./models/review')
-const campgrounds = require('./routes/campgrounds')
 const session = require('express-session')
-const cookie = require('express-session/session/cookie')
-const flash = require('flash')
+const flash = require('connect-flash')
+const expressError = require('./utils/expressError');
+var methodOverride = require('method-override')
+
+const campgrounds = require('./routes/campgrounds')
+const reviews = require('./routes/reviews')
+// const cookie = require('express-session/session/cookie')
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp').
     then(() => {
@@ -30,6 +27,7 @@ db.once("open",() =>{
     console.log("Database connected")
 })
 
+const app = express()
 
 app.engine('ejs',ejsMate)
 app.set('view engine', 'ejs');
@@ -56,6 +54,7 @@ app.use(flash())
 
 app.use((req,res,next)=>{
     res.locals.success = req.flash("Success!")
+    next()
 })
 
 app.use('/campgrounds',campgrounds)
