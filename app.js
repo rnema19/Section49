@@ -11,7 +11,7 @@ const expressError = require('./utils/expressError');
 const reviews = require('./models/review')
 const campgrounds = require('./routes/campgrounds')
 
-mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp').
+mongoose.connect('mongodb://localhost:27017/yelp-camp').
     then(() => {
         console.log("Connection Successful!!!")
     })
@@ -32,10 +32,10 @@ app.engine('ejs',ejsMate)
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname,'/views'))
 
-app.use(bodyParser.urlencoded({extended:true}))
+// app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.urlencoded({extended:true}))
 app.use(methodOverride('_method'))
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname,'public')))
 
 app.use('/campgrounds',campgrounds)
 app.use('/campgrounds/:id/review',reviews)
