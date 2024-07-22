@@ -12,6 +12,7 @@ const reviews = require('./models/review')
 const campgrounds = require('./routes/campgrounds')
 const session = require('express-session')
 const cookie = require('express-session/session/cookie')
+const flash = require('flash')
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp').
     then(() => {
@@ -44,12 +45,18 @@ const sessionConfig = {
     resave : false,
     saveUnitialized : true,
     cookie : {
+        http : true,
         expires : Date.now()+1000*60*60*24*7,
         maxAge : Date.now()+1000*60*60*24*7
     }
 }
 
 app.use(session(sessionConfig))
+app.use(flash())
+
+app.use((req,res,next)=>{
+    res.locals.success = req.flash("Success!")
+})
 
 app.use('/campgrounds',campgrounds)
 app.use('/campgrounds/:id/review',reviews)
