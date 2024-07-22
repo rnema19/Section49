@@ -43,7 +43,7 @@ const sessionConfig = {
     resave : false,
     saveUnitialized : true,
     cookie : {
-        http : true,
+        httpOnly : true,
         expires : Date.now()+1000*60*60*24*7,
         maxAge : Date.now()+1000*60*60*24*7
     }
@@ -54,6 +54,7 @@ app.use(flash())
 
 app.use((req,res,next)=>{
     res.locals.success = req.flash("Success!")
+    res.locals.error = req.flash('Error')
     next()
 })
 
@@ -65,7 +66,7 @@ app.get('/',(req,res)=>{
 })
 
 app.all('*',(req,res,next)=>{
-    next(new expressError("Page not found!!",404))
+   return next(new expressError("Page not found!!",404))
 })
 
 app.use((err,req,res,next)=>{
