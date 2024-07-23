@@ -59,7 +59,7 @@ app.use((req,res,next)=>{
 })
 
 app.use('/campgrounds',campgrounds)
-app.use('/campgrounds/:id/review',reviews)
+app.use('/campgrounds/:id/reviews',reviews)
 
 app.get('/',(req,res)=>{
     res.render('home')
