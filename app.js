@@ -53,8 +53,8 @@ app.use(session(sessionConfig))
 app.use(flash())
 
 app.use((req,res,next)=>{
-    res.locals.success = req.flash("Success!")
-    res.locals.error = req.flash('Error')
+    res.locals.success = req.flash('success')
+    res.locals.error = req.flash('error')
     next()
 })
 
@@ -79,6 +79,6 @@ app.use((err,req,res,next)=>{
     res.status(statusCode).render('error',{err})
 })
 
-app.listen(3000,()=>{
-    console.log("Serving port 3000!!!")
+app.listen(5000,()=>{
+    console.log("Serving port 5000!!!")
 })
